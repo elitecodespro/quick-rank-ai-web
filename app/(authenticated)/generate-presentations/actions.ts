@@ -11,7 +11,7 @@ import path from "path";
 import type { UploadFileResult } from "uploadthing/types";
 import { UTApi } from "uploadthing/server";
 import fs from "fs";
-import { currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 
 const CURRENT_MODEL = "gpt-4o-mini";
@@ -57,11 +57,17 @@ type TitleDescription = z.infer<typeof TitleAndDescriptionSchema>;
 
 export async function CreatePowerpoint(videoId: string) {
   try {
-    const user = await currentUser();
+
+    console.log('BEFORE USER ID', videoId);
+    
+    const { userId } = await auth();
+
+    console.log("AFTER USER ID", userId);
+    
 
     const userDB = await prisma.user.findFirst({
         where: {
-          email: user?.primaryEmailAddress?.emailAddress,
+          clerkId: userId
         },
     });
     
@@ -356,11 +362,10 @@ export async function UploadPowerpointToUploadThing(
 ): Promise<UploadFileResult[]> {
   try {
     const file = new File([fileBuffer], fileName, {
-      type: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      type: 'application/octet-stream',
     });
 
     console.log("THIS IS UTAPI FILE BEFORE UPLOAD", file);
-    
 
     const response = await utapi.uploadFiles([file]);
 
