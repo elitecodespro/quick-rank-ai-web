@@ -1,5 +1,4 @@
 import SignInForm from "@/components/auth/signin-form";
-import { Icons } from "@/components/marketing/global/icons";
 import Image from "next/image";
 import Link from "next/link";
 
