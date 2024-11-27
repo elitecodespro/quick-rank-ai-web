@@ -49,7 +49,7 @@ export async function hasSubscription(): Promise<{
 
 export async function createCheckoutLink(customer: string) {
     const checkout = await stripe.checkout.sessions.create({
-        success_url: `http://localhost:3000/dashboard`,
+        success_url: `https://www.quickrankaipro.com/dashboard`,
         customer: customer, 
         line_items: [
             {
@@ -67,7 +67,7 @@ export async function generateCustomerPortalLink(customerId: string) {
   try {
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: `http://localhost:3000/dashboard`,
+      return_url: `https://www.quickrankaipro.com/dashboard`,
     });
 
     return portalSession.url;
