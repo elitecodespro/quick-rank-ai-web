@@ -160,17 +160,44 @@ const AuthenticatedSidebar = ({ user, subscribed, manage_link, checkout_link, ch
                 <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
                     <SidebarTrigger className="-ml-1" />
                     <Separator orientation="vertical" className="mr-2 h-4" />
-                    <Breadcrumb>
-                        <BreadcrumbList>
-                            <BreadcrumbItem className="hidden md:block">
-                                <BreadcrumbLink href="#">
-                                    {`Welcome back, 👋 ${user?.firstName || "User"}`}
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            
-                        </BreadcrumbList>
-                    </Breadcrumb>
-                    <UserButton />
+                    <div className="flex w-full justify-between align-middle">
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem className="hidden md:block">
+                                    <BreadcrumbLink href="#">
+                                        {`Welcome back, 👋 ${user?.firstName || "User"}`}
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                
+                            </BreadcrumbList>
+                        </Breadcrumb>
+
+                        {subscribed ? (
+                            <Link
+                                href={manage_link}
+                                className={buttonVariants({
+                                    variant: "primary",
+                                    className: "align-middle"
+                                })}
+                            >
+                                <Settings className="mr-2 h-4 w-4" />
+                                Manage subscription
+                            </Link>
+                            ) : (
+                            <Link
+                                href={checkout_link}
+                                className={buttonVariants({
+                                    variant: "primary",
+                                    className: "align-middle"
+                                })}
+                            >
+                                <Package className="mr-2 h-4 w-4" />
+                                Upgrade to pro
+                            </Link>
+                        )}
+
+                        <UserButton />
+                    </div>
                 </header>
                 {children}
             </SidebarInset>

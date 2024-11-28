@@ -9,7 +9,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn, NAV_LINKS } from "@/utils";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
@@ -78,12 +78,18 @@ const Navbar = () => {
                         </SignedIn>
                         
                         <SignedOut>
-                            <div className="flex items-center">
+                            <div className="flex gap-5 items-center">
                                 <SignInButton>
                                     <Button className={buttonVariants({ size: "sm", variant: "ghost" })}>
                                         Sign In
                                     </Button>
                                 </SignInButton>
+
+                                <SignUpButton>
+                                    <Button className={buttonVariants({ size: "sm", variant: "purple"})}>
+                                        Sign Up
+                                    </Button>
+                                </SignUpButton>
                             </div>
                         </SignedOut>
                     </div>

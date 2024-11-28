@@ -42,7 +42,7 @@ const MobileNavbar = () => {
                         </Button>
                     </SheetClose>
                     <div className="flex flex-col items-start w-full py-2 mt-10">
-                        <div className="flex items-center justify-evenly w-full">
+                        <div className="flex flex-col gap-4 items-center justify-evenly w-full">
                             <SignedIn>
                                 <UserButton />
                                 <Link href="/dashboard" className={buttonVariants({ variant: "primary", className: "w-full" })}>
@@ -58,7 +58,7 @@ const MobileNavbar = () => {
                                 </SignInButton>
 
                                 <SignUpButton>
-                                    <Button className={buttonVariants({ variant: "primary", className: "w-full" })}>
+                                    <Button className={buttonVariants({ variant: "purple", className: "w-full" })}>
                                         Sign Up
                                     </Button>
                                 </SignUpButton>
