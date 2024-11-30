@@ -1,4 +1,5 @@
 import { Bell, Check } from 'lucide-react'
+import Image from 'next/image'
 import React from 'react'
 
 const SummaryFeature = () => {
@@ -68,7 +69,9 @@ const SummaryFeature = () => {
             </div>
           </div>
           {/* Image */}
-          <div className="min-h-[530px] overflow-hidden rounded-md bg-gray-100"></div>
+          <div className="min-h-[530px] overflow-hidden rounded-md">
+            <Image src={'/assets/bgf3.jpg'} width={1000} height={1000} alt='' className='h-full w-full' />
+          </div>
         </div>
       </div>
     </section>

@@ -16,6 +16,7 @@ import { ArrowRightIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+import QuizeFeature from '../../components/marketing/QuizeFeature';
 
 const HomePage = async () => {
 
@@ -107,6 +108,10 @@ const HomePage = async () => {
 
                 <AnimationContainer delay={0.2}>
                     <BlogFeature />
+                </AnimationContainer>
+
+                <AnimationContainer delay={0.2}>
+                    <QuizeFeature />
                 </AnimationContainer>
 
                 <AnimationContainer delay={0.4}>

@@ -103,7 +103,7 @@ export const PLANS = [
       name: "Free",
       price: "€0",
       features: [
-        "5 content generations per month",
+        "3 content generations per month",
         "Pre-selected topics",
         "Basic customization",
         "Email support",

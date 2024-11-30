@@ -1,15 +1,15 @@
 "use client"
 
+import SubmissionButton from "@/components/SubmissionButton";
 import { Input } from "@/components/ui/input";
 import { cn, extractYouTubeID } from "@/lib/utils";
+import { VideoIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import SubmissionButton from "@/components/SubmissionButton";
-import { VideoIcon } from "lucide-react";
-import { generateSummary } from "./actions";
+import { generateQuiz } from "./actions";
 
-const GenerateSummariesComponent = () => {
+const GenerateQuizzesComponent = () => {
     const router = useRouter();
     const [link, setLink] = useState<string | null>("");
     const [isValid, setIsValid] = useState<boolean>(false);
@@ -78,9 +78,9 @@ const GenerateSummariesComponent = () => {
 
         setIsLoading(true);
 
-        const result = await generateSummary(formData);
+        const result = await generateQuiz(formData);
         if (result.success) {
-            router.push("/summaries/" + result.data?.id);
+            router.push("/quizzes/" + result.data?.id);
         } else {
             router.push(`/error?error=${result.error}`);
         }
@@ -117,7 +117,7 @@ const GenerateSummariesComponent = () => {
                     )}
                     required
                 />
-                <SubmissionButton text="Summarize this Video" />
+                <SubmissionButton text="Generate Quiz for this Video" />
             </form>
 
             <p className="text-left text-sm text-slate-500 mb-4">
@@ -145,4 +145,4 @@ const GenerateSummariesComponent = () => {
     )
 }
 
-export default GenerateSummariesComponent
+export default GenerateQuizzesComponent

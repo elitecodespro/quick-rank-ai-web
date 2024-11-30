@@ -99,7 +99,7 @@ const GenerateBlogComponent = () => {
         <div className="w-full max-w-[960px]">
             <form
                 action={handleSubmit}
-                className="flex gap-2 items-center justify-center"
+                className="flex flex-col md:flex-row gap-2 items-center justify-center"
             >
                 <Input
                     name="link"

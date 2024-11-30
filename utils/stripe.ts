@@ -178,9 +178,19 @@ export async function checkContentCreationEligibility(): Promise<{
         },
     });
 
-    const totalGenerationCount = blogPostGenerationCount + summaryGenerationCount;
+    const quizGenerationCount = await prisma.quiz.count({
+      where: {
+          userId: userDB.id,
+          createdAt: {
+              gte: periodStart,
+              lte: periodEnd,
+          },
+      },
+    });
 
-    const limit = isSubscribed ? 30 : 5;
+    const totalGenerationCount = blogPostGenerationCount + summaryGenerationCount + quizGenerationCount;
+
+    const limit = isSubscribed ? 30 : 3;
     const remainingGenerations = Math.max(0, limit - totalGenerationCount);
 
     if (remainingGenerations === 0) {

@@ -14,9 +14,9 @@ const SubmissionButton = ({ text }: SubmissionButtonProps) => {
 
   return (
     <Button
-        className='w-min h-12 px-6'
+      className='w-max md:w-min h-12 px-6 mb-3 md:mb-0'
     >
-        {pending ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : text}
+      {pending ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : text}
     </Button>
   )
 }

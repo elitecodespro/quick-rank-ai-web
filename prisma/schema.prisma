@@ -11,6 +11,7 @@ model ChapterSet {
   id      String   @id @default(cuid())
   title   String
   content String[]
+  archived Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User @relation("UserSavedChapters", fields: [userId], references: [id])
@@ -33,6 +34,7 @@ model Posts {
   title   String
   content String
   videoId String
+  archived Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User @relation("UserSavedPosts", fields: [user_id], references: [id])
@@ -44,6 +46,7 @@ model Summaries {
   title   String
   content String
   videoId String
+  archived Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   users     User @relation("UserSavedSummaries", fields: [user_id], references: [id])
@@ -78,4 +81,33 @@ model User {
   savedPosts        Posts[] @relation("UserSavedPosts")
   savedSummaries    Summaries[] @relation("UserSavedSummaries")
   SocialMediaPosts  SocialMediaPosts[] @relation("UserSavedSocialMediaPosts")
+  quizzes           Quiz[]
+}
+
+model Quiz {
+  id          String @id @default(cuid())
+  userId      String 
+  user        User @relation(fields: [userId], references: [id])
+  topic       String @default("")
+  questions   Question[]
+  videoId String
+  archived Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id String @id @default(cuid())
+  text String
+  quizId String
+  quiz Quiz @relation(fields: [quizId], references: [id])
+  answers Answer[]
+}
+
+model Answer {
+  id String @id @default(cuid())
+  text String 
+  questionId String
+  question Question @relation(fields: [questionId], references: [id])
+  correct Boolean
 }

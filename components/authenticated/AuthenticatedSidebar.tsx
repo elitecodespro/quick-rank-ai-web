@@ -54,6 +54,23 @@ const AuthenticatedSidebar = ({ user, subscribed, manage_link, checkout_link, ch
                 ]
             },
             {
+                title: "Quizzes",
+                url: "#",
+                isActive: (pathname == "/quizzes") || (pathname == "/generate-quizzes") ? true : false,
+                items: [
+                    {
+                      title: "My Quizzes",
+                      url: "/quizzes",
+                      isActive: pathname == "/quizzes" ? true : false,
+                    },
+                    {
+                        title: "Generate Quizzes",
+                        url: "/generate-quizzes",
+                        isActive: pathname == "/generate-quizzes" ? true : false
+                    },
+                ],
+            },
+            {
                 title: "Summaries",
                 url: "#",
                 isActive: (pathname == "/summaries") || (pathname == "/generate-summaries") ? true : false,

@@ -7,7 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import { toast } from "sonner";
+import { archiveSummary, updateSummary } from "../actions";
 
 export function SummaryCardForm({
     item,
@@ -17,6 +20,28 @@ export function SummaryCardForm({
     readonly className?: string;
   }) {
 
+    const router = useRouter();
+
+    const handleSubmit = async (formData: FormData) => {
+      const id = formData.get("id")?.toString();
+      const title = formData.get("title")?.toString();
+      const content = formData.get("content")?.toString();
+
+      if (!id || !title || !content) {
+        toast.error("Please enter a valid YouTube URL");
+        return;
+      }
+
+      const result = await updateSummary(formData);
+
+      if (result?.success) {
+        toast.success("Updated successfully")
+        router.push("/summaries/" + result.data?.id);
+      } else {
+          router.push(`/error?error=${result?.error}`);
+      }
+    }
+
     return (
         <Card className={cn("mb-8 relative h-auto", className)}>
           <CardHeader> 
@@ -24,7 +49,7 @@ export function SummaryCardForm({
           </CardHeader>
           <CardContent>
             <div>
-              <form>
+              <form action={handleSubmit}>
                 <Input
                   id="title"
                   name="title"
@@ -98,7 +123,8 @@ export function SummaryCardForm({
                 <input type="hidden" name="id" value={item.id} />
                 <SubmissionButton text="Update Summary" />
               </form>
-              <form>
+              <form action={archiveSummary}>
+                <input type="hidden" name="id" id='id' defaultValue={item.id} />
                 <DeleteButton className="absolute right-4 top-4 bg-red-700 hover:bg-red-600" />
               </form>
             </div>

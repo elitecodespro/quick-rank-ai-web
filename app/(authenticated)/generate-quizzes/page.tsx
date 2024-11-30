@@ -1,10 +1,9 @@
-import GenerateSummariesComponent from "./generate-summaries-component"
-import { currentUser } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
-import { checkContentCreationEligibility } from "@/utils/stripe"
+import { checkContentCreationEligibility } from "@/utils/stripe";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import GenerateQuizzesComponent from "./GenerateQuizzesComponent";
 
-const GenerateSummariesPage = async () => {
-
+const GenerateQuizzesPage = async () => {
     const user = await currentUser();
 
     if (!user) {
@@ -16,7 +15,6 @@ const GenerateSummariesPage = async () => {
 
     return (
         <div className="flex flex-1 flex-col gap-4 p-8 m-5 min-h-[100vh] rounded-xl bg-muted/50 md:min-h-min">
-
             {!isEligible && (
                 <div className="p-4 mb-2 bg-red-100 border border-red-400 text-red-700 rounded-md">
                     {message}
@@ -33,9 +31,9 @@ const GenerateSummariesPage = async () => {
                 </div>
             )}
 
-            <GenerateSummariesComponent />
+            <GenerateQuizzesComponent />
         </div>
     )
 }
 
-export default GenerateSummariesPage
+export default GenerateQuizzesPage
