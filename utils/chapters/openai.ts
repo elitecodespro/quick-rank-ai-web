@@ -12,11 +12,7 @@ const ChapterSchema = z.object({
 });
 
 export async function generateChaptersWithOpenAI(
-  parsedTranscript: {
-    text: string;
-    timestamp: string;
-  }[],
-  length: number
+  parsedTranscript: string
 ): Promise<string[] | null> {
   try {
     const response = await client.beta.chat.completions.parse({
@@ -25,20 +21,15 @@ export async function generateChaptersWithOpenAI(
         {
           role: "system",
           content:
-            "You are an AI assistant that generates chapters / timestamps for a video based on the transcript of a video. The transcript contains the timestamp for the beginning of a sentence as well as the sentence itself. ",
+            "You are an AI assistant that generates chapters / timestamps for a video based on the transcript of a video.",
         },
         {
           role: "user",
-          content: `Generate chapters / timestamps for a video based on the following array of objects where each object represents a sentence.
+          content: `Generate chapters / timestamps for a video.
                         Each timestamp / chapter should summarise a section of the video. Your job is to find the natural stopping points for the video 
-                        based on the transcript. You MUST include timestamps in your response for each chapter. The length of the video is ${length} seconds. 
+                        based on the transcript. You MUST include timestamps in your response for each chapter. 
                         The timestamps should not exceed the length of the video. The timestamps should be in the following format: [00:00].
-                        The transcript is as follows: ${parsedTranscript
-                          .map(
-                            ({ text, timestamp }) => `${timestamp} - ${text}`
-                          )
-                          .join("\n")}
-                        }
+                        The transcript is as follows: ${parsedTranscript}
                     `,
         },
       ],

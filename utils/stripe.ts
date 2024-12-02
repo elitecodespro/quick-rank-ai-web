@@ -188,7 +188,17 @@ export async function checkContentCreationEligibility(): Promise<{
       },
     });
 
-    const totalGenerationCount = blogPostGenerationCount + summaryGenerationCount + quizGenerationCount;
+    const chapterSetGenerationCount = await prisma.chapterSet.count({
+      where: {
+          userId: userDB.id,
+          createdAt: {
+              gte: periodStart,
+              lte: periodEnd,
+          },
+      },
+    });
+
+    const totalGenerationCount = blogPostGenerationCount + summaryGenerationCount + quizGenerationCount + chapterSetGenerationCount;
 
     const limit = isSubscribed ? 30 : 3;
     const remainingGenerations = Math.max(0, limit - totalGenerationCount);
@@ -201,19 +211,19 @@ export async function checkContentCreationEligibility(): Promise<{
             ).toLocaleDateString();
 
         return {
-        isEligible: false,
-        message: isSubscribed
+          isEligible: false,
+          message: isSubscribed
             ? `You have reached the maximum number of content generations (30) for this subscription period. Reset Date: ${resetDate}`
             : `You have reached the maximum number of content generations (10) for the free tier. You can generate more starting ${resetDate}`,
-        remainingGenerations: 0,
+          remainingGenerations: 0,
         };
     }
 
     return {
-        isEligible: true,
-        message: `You have ${remainingGenerations} content generation${
-        remainingGenerations !== 1 ? "s" : ""
-        } remaining for this ${isSubscribed ? "billing cycle" : "month"}`,
-        remainingGenerations: remainingGenerations,
+      isEligible: true,
+      message: `You have ${remainingGenerations} content generation${
+      remainingGenerations !== 1 ? "s" : ""
+      } remaining for this ${isSubscribed ? "billing cycle" : "month"}`,
+      remainingGenerations: remainingGenerations,
     };
 }

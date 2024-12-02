@@ -17,6 +17,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 import QuizeFeature from '../../components/marketing/QuizeFeature';
+import TimestampFeature from '@/components/marketing/TimestampFeature';
 
 const HomePage = async () => {
 
@@ -112,6 +113,10 @@ const HomePage = async () => {
 
                 <AnimationContainer delay={0.2}>
                     <QuizeFeature />
+                </AnimationContainer>
+
+                <AnimationContainer delay={0.2}>
+                    <TimestampFeature />
                 </AnimationContainer>
 
                 <AnimationContainer delay={0.4}>

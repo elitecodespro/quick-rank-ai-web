@@ -12,7 +12,7 @@ const BlogSchema = z.object({
 });
 
 export async function generateBlogPostWithOpenAI(
-    parsedTranscript: string
+  parsedTranscript: string
 ): Promise<string | null> {
   try {
     const response = await client.beta.chat.completions.parse({

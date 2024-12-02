@@ -1,4 +1,5 @@
 import { Bell, Check } from 'lucide-react'
+import Image from 'next/image'
 import React from 'react'
 
 const TimestampFeature = () => {
@@ -8,8 +9,6 @@ const TimestampFeature = () => {
       <div className="mx-auto w-full max-w-7xl px-5 py-12 md:px-10 md:py-16 lg:py-20 bg-zinc-900 border border-border border-r-0 rounded-xl mt-14">
         {/* Component */}
         <div className="grid gap-12 sm:gap-20 lg:grid-cols-2">
-          {/* Image */}
-          <div className="min-h-[530px] overflow-hidden rounded-md bg-gray-100"></div>
           {/* Content */}
           <div className="flex flex-col items-start gap-2">
             {/* Title */}
@@ -68,6 +67,11 @@ const TimestampFeature = () => {
                 <p>Start Generating Your Revenue Now!</p>
               </a>
             </div>
+          </div>
+          
+          {/* Image */}
+          <div className="min-h-[530px] overflow-hidden rounded-md">
+            <Image src={'/assets/bgf4.jpg'} width={1000} height={1000} alt='' className='h-full w-full' />
           </div>
           
         </div>

@@ -71,6 +71,23 @@ const AuthenticatedSidebar = ({ user, subscribed, manage_link, checkout_link, ch
                 ],
             },
             {
+                title: "Chapters/Timestamps",
+                url: "#",
+                isActive: (pathname == "/chapters") || (pathname == "/generate-chapters") ? true : false,
+                items: [
+                    {
+                      title: "My Chapters/Timestamps",
+                      url: "/chapters",
+                      isActive: pathname == "/chapters" ? true : false,
+                    },
+                    {
+                        title: "Generate Chapters/Timestamps",
+                        url: "/generate-chapters",
+                        isActive: pathname == "/generate-chapters" ? true : false
+                    },
+                ],
+            },
+            {
                 title: "Summaries",
                 url: "#",
                 isActive: (pathname == "/summaries") || (pathname == "/generate-summaries") ? true : false,
