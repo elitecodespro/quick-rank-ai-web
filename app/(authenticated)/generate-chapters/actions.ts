@@ -3,9 +3,7 @@
 import prisma from "@/lib/prisma";
 import { extractYouTubeID } from "@/lib/utils";
 import { generateChaptersWithOpenAI } from "@/utils/chapters/openai";
-import { parseXMLContent } from "@/utils/chapters/parsing";
 import { validateYouTubeLink } from "@/utils/chapters/validations";
-import { getVideoDetails, getVideoIdFromLink, getVideoTranscript } from "@/utils/chapters/youtube";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 

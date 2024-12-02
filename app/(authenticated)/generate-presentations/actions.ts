@@ -127,6 +127,7 @@ export async function CreatePowerpoint(videoId: string) {
       data: {
         link: UploadResult[0].data?.url,
         ownerId: userDB.id,
+        videoId: "Temporary",
         title: titleAndDescription.title,
         description: titleAndDescription.description,
       },
