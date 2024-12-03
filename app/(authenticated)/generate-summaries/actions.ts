@@ -59,7 +59,7 @@ export async function generateSummary(
     };
   }
 
-  const url = `https://deserving-harmony-9f5ca04daf.strapiapp.com/utilai/yt-transcript/${videoId}`;
+  //const url = `https://deserving-harmony-9f5ca04daf.strapiapp.com/utilai/yt-transcript/${videoId}`;
 
   let videoTranscript;
 
