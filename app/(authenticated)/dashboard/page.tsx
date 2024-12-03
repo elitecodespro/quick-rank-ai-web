@@ -61,6 +61,32 @@ const DashboardPage = () => {
         </MagicCard>
 
         <MagicCard className="p-0 md:p-0 relative">
+          <Link href={`/generate-chapters`} className="w-full h-full absolute -z-1 inset-0"></Link>
+          <Card className="group border-0">
+            <CardContent className="p-4 lg:p-6">
+              <div className="flex items-center justify-center h-40 lg:h-52 overflow-hidden">
+                <Image
+                    src={'/assets/bgp4.jpg'}
+                    alt='Generate Chapters/Timestamps'
+                    width={1024}
+                    height={1024}
+                    unoptimized
+                    className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+              <div className="flex flex-col items-start justify-start mt-4">
+                <CardTitle className="text-lg font-semibold text-foreground/80 group-hover:text-foreground transition-all duration-300">
+                  Generate Chapters/Timestamps
+                </CardTitle>
+                <CardDescription className="mt-2">
+                  Create Chapters/Timestamps from any youtube videos
+                </CardDescription>
+              </div>
+            </CardContent>
+          </Card>
+        </MagicCard>
+
+        <MagicCard className="p-0 md:p-0 relative">
           <Link href={`/generate-summaries`} className="w-full h-full absolute -z-1 inset-0"></Link>
           <Card className="group border-0">
             <CardContent className="p-4 lg:p-6">

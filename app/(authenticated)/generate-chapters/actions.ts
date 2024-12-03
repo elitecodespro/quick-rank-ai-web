@@ -6,6 +6,7 @@ import { generateChaptersWithOpenAI } from "@/utils/chapters/openai";
 import { validateYouTubeLink } from "@/utils/chapters/validations";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { YoutubeTranscript } from 'youtube-transcript';
 
 type GenerateChaptersResponse = {
     success: boolean;
@@ -57,14 +58,23 @@ export async function generateChapters(
         };
     }
 
-    const url = `https://deserving-harmony-9f5ca04daf.strapiapp.com/utilai/yt-transcript/${videoId}`;
+    //const url = `https://deserving-harmony-9f5ca04daf.strapiapp.com/utilai/yt-transcript/${videoId}`;
 
     let videoTranscript;
 
     try {
-        const transcript = await fetch(url);
-        videoTranscript = await transcript.text();
-        console.log("TRANSCRIPT DATA", transcript);
+        // Fetch transcript using youtube-transcript
+        const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+
+        // Combine transcript into a single string
+        videoTranscript = transcript.map((item) => item.text)
+        .join(' ')
+        .trim();
+
+        console.log("TRANSCRIPT TEXT FOR TESTING", videoTranscript);
+        // const transcript = await fetch(url);
+        // videoTranscript = await transcript.text();
+        // console.log("TRANSCRIPT DATA", transcript);
     } catch (error) {
         console.error("Error processing request:", error);
         return {
