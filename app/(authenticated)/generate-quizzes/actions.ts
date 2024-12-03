@@ -5,6 +5,7 @@ import { extractYouTubeID } from "@/lib/utils";
 import { validateYouTubeLink } from "@/utils/chapters/validations";
 import { generateQuizeWithOpenAI } from "@/utils/quizzes/openai";
 import { auth } from "@clerk/nextjs/server";
+import axios from "axios";
 import { revalidatePath } from "next/cache";
 
 export async function generateQuiz(formData: FormData){
@@ -48,16 +49,32 @@ export async function generateQuiz(formData: FormData){
     let videoTranscript;
 
     try {
-        const transcript = await fetch(url);
-        videoTranscript = await transcript.text();
-        console.log("TRANSCRIPT DATA", transcript);
+      const options = {
+        method: 'GET',
+        url: 'https://youtube-transcript3.p.rapidapi.com/api/transcript-with-url',
+        params: {
+          url: `https://www.youtube.com/watch?v=${videoId}`,
+          flat_text: 'true',
+          lang: 'en'
+        },
+        headers: {
+          'x-rapidapi-key': process.env.RAPID_API_KEY!,
+          'x-rapidapi-host': 'youtube-transcript3.p.rapidapi.com'
+        }
+      };
+
+      const response = await axios.request(options);
+      videoTranscript = response.data.transcript;
+      // const transcript = await fetch(url);
+      // videoTranscript = await transcript.text();
+      // console.log("TRANSCRIPT DATA", transcript);
         
-      } catch (error) {
-        console.error("Error processing request:", error);
-        return {
-          success: false,
-          error: "video_issue",
-        };
+    } catch (error) {
+      console.error("Error processing request:", error);
+      return {
+        success: false,
+        error: "video_issue",
+      };
     }
 
     const openAiQuize = await generateQuizeWithOpenAI(videoTranscript);

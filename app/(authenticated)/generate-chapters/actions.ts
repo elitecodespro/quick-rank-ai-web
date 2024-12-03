@@ -75,16 +75,12 @@ export async function generateChapters(
               'x-rapidapi-key': process.env.RAPID_API_KEY!,
               'x-rapidapi-host': 'youtube-transcript3.p.rapidapi.com'
             }
-          };
+        };
 
         const response = await axios.request(options);
-        videoTranscript = response.data.transcript
-        // const transcript = await YoutubeTranscript.fetchTranscript(videoId);
-        // videoTranscript = transcript.map((item) => item.text)
-        // .join(' ')
-        // .trim();
+        videoTranscript = response.data.transcript;
 
-        console.log("TRANSCRIPT TEXT FOR TESTING", videoTranscript);
+        //console.log("TRANSCRIPT TEXT FOR TESTING", videoTranscript);
         // const transcript = await fetch(url);
         // videoTranscript = await transcript.text();
         // console.log("TRANSCRIPT DATA", transcript);
