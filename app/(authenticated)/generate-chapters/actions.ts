@@ -5,8 +5,8 @@ import { extractYouTubeID } from "@/lib/utils";
 import { generateChaptersWithOpenAI } from "@/utils/chapters/openai";
 import { validateYouTubeLink } from "@/utils/chapters/validations";
 import { currentUser } from "@clerk/nextjs/server";
+import axios from "axios";
 import { revalidatePath } from "next/cache";
-import { YoutubeTranscript } from 'youtube-transcript';
 
 type GenerateChaptersResponse = {
     success: boolean;
@@ -63,13 +63,26 @@ export async function generateChapters(
     let videoTranscript;
 
     try {
-        // Fetch transcript using youtube-transcript
-        const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+        const options = {
+            method: 'GET',
+            url: 'https://youtube-transcript3.p.rapidapi.com/api/transcript-with-url',
+            params: {
+              url: `https://www.youtube.com/watch?v=${videoId}`,
+              flat_text: 'true',
+              lang: 'en'
+            },
+            headers: {
+              'x-rapidapi-key': process.env.RAPID_API_KEY!,
+              'x-rapidapi-host': 'youtube-transcript3.p.rapidapi.com'
+            }
+          };
 
-        // Combine transcript into a single string
-        videoTranscript = transcript.map((item) => item.text)
-        .join(' ')
-        .trim();
+        const response = await axios.request(options);
+        videoTranscript = response.data.transcript
+        // const transcript = await YoutubeTranscript.fetchTranscript(videoId);
+        // videoTranscript = transcript.map((item) => item.text)
+        // .join(' ')
+        // .trim();
 
         console.log("TRANSCRIPT TEXT FOR TESTING", videoTranscript);
         // const transcript = await fetch(url);
@@ -78,8 +91,8 @@ export async function generateChapters(
     } catch (error) {
         console.error("Error processing request:", error);
         return {
-        success: false,
-        error: "video_issue",
+            success: false,
+            error: "video_issue",
         };
     }
 
